@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"os"
 	"time"
+	"bufio"
+	"strings"
 )
 
 func main() {
@@ -32,7 +34,10 @@ func main() {
 		answerCh := make(chan string)
 		go func() {
 			var answer string
-			fmt.Scanf("%s\n", &answer)
+			reader := bufio.NewReader(os.Stdin)
+            answer, _ = reader.ReadString('\n')
+            answer = strings.TrimSpace(answer)
+
 			answerCh <- answer
 		}()
 		select {
